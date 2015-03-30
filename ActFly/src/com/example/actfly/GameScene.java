@@ -102,7 +102,7 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
 		
 		setUserData("GameScene");
 		//ach = Achievements.getSharedInstance();
-		activity.loadBackSprite("gfx/def_graphics/def");
+		activity.loadBackSprite("gfx/fruit_theme/def");
 		loadSprites();
 		
 		setBackground(new SpriteBackground(foneSprite));

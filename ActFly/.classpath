@@ -6,7 +6,5 @@
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/AndEngine"/>
 	<classpathentry kind="src" path="gen"/>
-	<classpathentry kind="lib" path="D:/workspace/AndEngine/bin/andengine.jar" sourcepath="/AndEngine/src"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/AndEnginePhysicsBox2DExtension-GLES2"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
