@@ -188,7 +188,7 @@ public class GameLoopUpdateHandler implements IUpdateHandler {
 	}
 	
 	public void makeHarder()
-	{   BaseActivity.getSharedInstance().loadBackSprite("gfx/test_theme/def");
+	{  //BaseActivity.getSharedInstance().loadBackSprite("gfx/test_theme/def");
 		//scene.loadSprites();
 		//Ship.getSharedInstance().reloadShip();
 		//Person.getSharedInstance().reloadPerson();

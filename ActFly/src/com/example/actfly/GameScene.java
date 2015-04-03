@@ -102,14 +102,14 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
 		
 		setUserData("GameScene");
 		//ach = Achievements.getSharedInstance();
-		activity.loadBackSprite("gfx/neon_theme/def");
+		activity.loadBackSprite("gfx/ocean_theme/def");
 		loadSprites();
 		
 		setBackground(new SpriteBackground(foneSprite));
 		setOnSceneTouchListener(this);
 		bulletList = new LinkedList();
 	    
-	 // attaching an EnemyLayer entity with 12 enemies on it
+	 // attaching an EnemyLayer entity with 3 enemies on it
 	    attachChild(new EnemyLayer(3));
 	    sortChildren(true);
 	    mCamera = BaseActivity.getSharedInstance().mCamera;
