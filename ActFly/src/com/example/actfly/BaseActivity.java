@@ -2,6 +2,7 @@ package com.example.actfly;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Random;
@@ -74,8 +75,10 @@ public class BaseActivity extends SimpleBaseGameActivity implements OnClickListe
 	public PhysicsWorld mPhysicsWorld;
 	public SharedPreferences Records;
 	public SharedPreferences Achievements;
+	public SharedPreferences curTheme;
 	
 	private BitmapTextureAtlas theme1Atlas;
+	private BitmapTextureAtlas iconsAtlas;
 	public TextureRegion foneRegion;
 	public TextureRegion personRegion;
 	public TextureRegion enemy_1Region;
@@ -89,6 +92,8 @@ public class BaseActivity extends SimpleBaseGameActivity implements OnClickListe
 	public TextureRegion bonus_3Region;
 	public TextureRegion flyingRegion;
 	public TextureRegion blockRegion;
+	ArrayList themesList = new ArrayList();
+	
 	
 	//A reference to the current scene
 	public Scene mCurrentScene;
@@ -136,11 +141,14 @@ public class BaseActivity extends SimpleBaseGameActivity implements OnClickListe
 		
 		Records = getSharedPreferences("HighScore", Context.MODE_PRIVATE);
 		Achievements = getSharedPreferences("Achievements", Context.MODE_PRIVATE);
+		curTheme = getSharedPreferences("CurrentTheme", Context.MODE_PRIVATE);
 		Editor editor = Records.edit();
 		editor.putInt("Record", 0);
 		editor.apply();
 		theme1Atlas = new BitmapTextureAtlas(this.getTextureManager(), 1024, 512);
 		theme1Atlas.load();
+		iconsAtlas = new BitmapTextureAtlas(this.getTextureManager(), 256, 128);
+		iconsAtlas.load();
 		//loadBackSprite("gfx/1_noch_d.jpg");
 	}
 
@@ -161,6 +169,12 @@ public class BaseActivity extends SimpleBaseGameActivity implements OnClickListe
 		//flyingRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(this.theme1Atlas, this, path+"_bonu_1.png", 0, 0);
 		blockRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(this.theme1Atlas, this, path+"_bloc.png", 815, 10);
 		
+	}
+	
+public TextureRegion loadIconSprite(String path, int x, int y) {
+		
+		TextureRegion icon = BitmapTextureAtlasTextureRegionFactory.createFromAsset(this.iconsAtlas, this, path+"_pers.png", x, y);
+		return icon;
 	}
 
 	@Override

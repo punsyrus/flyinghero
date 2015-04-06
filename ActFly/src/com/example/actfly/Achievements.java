@@ -16,12 +16,14 @@ public class Achievements{
 	
 	BaseActivity activity = BaseActivity.getSharedInstance();
 	public SharedPreferences Achieve;
+	public SharedPreferences curTheme;
 	public static Achievements instance = new Achievements();
 	
 	Achievements()
 	{
 		instance=this;
         Achieve = activity.Achievements;
+        curTheme = activity.curTheme;
 	}
 	
 	public static Achievements getSharedInstance() {

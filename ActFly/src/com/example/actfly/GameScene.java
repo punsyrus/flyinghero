@@ -101,8 +101,25 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
 		instance=this;
 		
 		setUserData("GameScene");
-		//ach = Achievements.getSharedInstance();
-		activity.loadBackSprite("gfx/ocean_theme/def");
+		activity.themesList.add(0,"balls_theme");
+		activity.themesList.add(1,"fruit_theme");
+		activity.themesList.add(2,"neon_theme");
+		activity.themesList.add(3,"ocean_theme");
+		
+		
+		Editor editor = activity.Achievements.edit();
+		editor.putInt(String.valueOf(activity.themesList.get(0)), 1);
+		editor.putInt(String.valueOf(activity.themesList.get(1)), 1);
+		editor.putInt(String.valueOf(activity.themesList.get(2)), 1);
+		editor.putInt(String.valueOf(activity.themesList.get(3)), 1);
+		//editor.putInt("fruit_theme", 1);
+		editor.apply();
+		
+		Editor editorTheme = activity.curTheme.edit();
+		editorTheme.putString("Theme", String.valueOf(activity.themesList.get(0)));
+		editorTheme.apply();
+		
+		activity.loadBackSprite("gfx/"+String.valueOf(activity.themesList.get(0))+"/def");
 		loadSprites();
 		
 		setBackground(new SpriteBackground(foneSprite));

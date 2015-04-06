@@ -117,7 +117,7 @@ public class PauseScene extends Scene implements IOnSceneTouchListener{
 			  		scene.attachChild(ship.sprite);
 			  		scene.attachChild(person.sprite2);
 			 		/* GameScene.getSharedInstance().loadSprites();*/
-			  		  activity.setCurrentScene(new InterfaceScene());
+			  		  activity.setCurrentScene(new BackChooserScene());
 			      }
 
 	    			return true;
