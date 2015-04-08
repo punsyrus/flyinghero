@@ -33,6 +33,7 @@ public class IntroScene extends Scene implements IOnSceneTouchListener{
 	BaseActivity activity;
 	public Ship ship;
 	public Person person;
+	public Achievements ach = Achievements.getSharedInstance();
 	GameScene scene = (GameScene) BaseActivity.getSharedInstance().mCurrentScene;
 	EnemyLayer enemy = EnemyLayer.getSharedInstance();
 	
@@ -47,6 +48,13 @@ public class IntroScene extends Scene implements IOnSceneTouchListener{
 		scene.detachChild(person.sprite2);
 		attachChild(ship.sprite);
 		attachChild(person.sprite2);
+		
+		ach.add_points(scene.points, ach.curTheme.getString("Theme", "0"));
+		Log.i("EndScene", String.valueOf(scene.points + " " + ach.curTheme.getString("Theme", "0")));
+		ach.unlockTheme_1();
+		ach.unlockTheme_2();
+		ach.unlockTheme_3();
+		ach.unlockTheme_4();
 		
 		setOnSceneTouchListener(new IOnSceneTouchListener(){
 		    @Override public boolean onSceneTouchEvent(    final Scene pScene,    final TouchEvent pSceneTouchEvent){

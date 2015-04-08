@@ -60,6 +60,7 @@ import android.graphics.Typeface;
 import android.hardware.SensorManager;
 import android.util.Log;
 import android.view.Display;
+import android.view.KeyEvent;
 import android.widget.Toast;
 
 public class BaseActivity extends SimpleBaseGameActivity implements OnClickListener {
@@ -186,6 +187,24 @@ public TextureRegion loadIconSprite(String path, int x, int y) {
 		createWalls();
 		return mCurrentScene;
 		
+	}
+	
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		// super.onBackPressed();
+		
+	}
+	
+	
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		// TODO Auto-generated method stub
+		switch (keyCode) {
+		case KeyEvent.KEYCODE_BACK:
+			onBackPressed();
+			return true;
+		
+		}
+		return false;
 	}
 	
 	private void createWalls() {

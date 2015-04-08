@@ -27,6 +27,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Joint;
 
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.widget.Toast;
 
@@ -37,6 +38,7 @@ public class PauseScene extends Scene implements IOnSceneTouchListener{
 	int allHumans,allFires;
 	public Rectangle pauseButInv;
 	public Rectangle interfaceBut;
+	public Rectangle achieveBut;
 	GameScene scene = (GameScene) GameScene.getSharedInstance();
 	EnemyLayer enemy = EnemyLayer.getSharedInstance();
 	
@@ -128,9 +130,38 @@ public class PauseScene extends Scene implements IOnSceneTouchListener{
 	    //pauseButInv.setVisible(false);
 	    setTouchAreaBindingOnActionDownEnabled(true);
 	    attachChild(interfaceBut);
+	    
+	    achieveBut = new Rectangle(100, cam.getHeight()-90, 80, 80, BaseActivity.getSharedInstance()
+	            .getVertexBufferObjectManager()){
+	    	@Override
+			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
+	    		if (pSceneTouchEvent.isActionDown()) {
+			    	  //Log.i("Click", "Down");
+			    
+	    			  activity.mCurrentScene.detachChild(ship.sprite);
+	    			  activity.mCurrentScene.detachChild(person.sprite2);
+			    	  
+			  		// BaseActivity.getSharedInstance().loadBackSprite("gfx/test_theme/def");
+			  		/*ship.reloadShip();
+			  		person.reloadPerson();*/
+			  		//scene.loadSprites();
+			  		//scene.reset();
+			  		scene.attachChild(ship.sprite);
+			  		scene.attachChild(person.sprite2);
+			 		/* GameScene.getSharedInstance().loadSprites();*/
+			  		  activity.setCurrentScene(new AllAchievementsScene());
+			      }
+
+	    			return true;
+	    		}};
+	    
+	    
+	    registerTouchArea(achieveBut);
+	    //pauseButInv.setVisible(false);
+	    setTouchAreaBindingOnActionDownEnabled(true);
+	    attachChild(achieveBut);
 
 }
-	
 	
 	
 	@Override

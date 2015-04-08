@@ -105,21 +105,35 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
 		activity.themesList.add(1,"fruit_theme");
 		activity.themesList.add(2,"neon_theme");
 		activity.themesList.add(3,"ocean_theme");
-		
+		activity.themesList.add(4,"fire_theme");
 		
 		Editor editor = activity.Achievements.edit();
+		editor.clear();
 		editor.putInt(String.valueOf(activity.themesList.get(0)), 1);
-		editor.putInt(String.valueOf(activity.themesList.get(1)), 1);
+	/*	editor.putInt(String.valueOf(activity.themesList.get(1)), 1);
 		editor.putInt(String.valueOf(activity.themesList.get(2)), 1);
 		editor.putInt(String.valueOf(activity.themesList.get(3)), 1);
+		editor.putInt(String.valueOf(activity.themesList.get(4)), 1);*/
+		
+		editor.putInt(String.valueOf(activity.themesList.get(1)), 0);
+		editor.putInt(String.valueOf(activity.themesList.get(2)), 0);
+		editor.putInt(String.valueOf(activity.themesList.get(3)), 0);
+		editor.putInt(String.valueOf(activity.themesList.get(4)), 0);
+		
 		//editor.putInt("fruit_theme", 1);
 		editor.apply();
-		
 		Editor editorTheme = activity.curTheme.edit();
-		editorTheme.putString("Theme", String.valueOf(activity.themesList.get(0)));
+		editorTheme.clear();
+		if (activity.curTheme.getString("Theme", "0").equals("0"))
+		{
+			editorTheme.putString("Theme", String.valueOf(activity.themesList.get(0)));
+			activity.loadBackSprite("gfx/"+String.valueOf(activity.themesList.get(0))+"/def");
+		}
+		else 
+		{
+			activity.loadBackSprite("gfx/"+String.valueOf(activity.curTheme.getString("Theme", "0"))+"/def");
+		}
 		editorTheme.apply();
-		
-		activity.loadBackSprite("gfx/"+String.valueOf(activity.themesList.get(0))+"/def");
 		loadSprites();
 		
 		setBackground(new SpriteBackground(foneSprite));
@@ -790,8 +804,7 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
 	if ((String.valueOf(b2.getUserData()).contains("person")) && (String.valueOf(b1.getUserData()).contains("ship")))
 	{
 		//Log.i("Contact", String.valueOf(value) + " " + "Person");
-	ach.checkDoubleHit(hits);
-	ach.checkTripleHit(hits);
+	
 	hits=0;
 	Log.i("Contact", "Ship" + " " + "Person");
 	}

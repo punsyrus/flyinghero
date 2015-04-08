@@ -56,18 +56,13 @@ public class EndScene extends Scene implements IOnSceneTouchListener{
 			editor.apply();
 		}
 		
-		ach.checkPoints_200(scene.points);
-		ach.checkPoints_500(scene.points);
-		ach.checkPoints_1000(scene.points);
-		ach.checkPoints_1500(scene.points);
-		ach.checkPoints_3000(scene.points);
-		ach.checkPoints_5000(scene.points);
-		//ach.checkAllFiresLeft(scene.fires, EnemyLayer.getSharedInstance().enemyCount+scene.dFire);
-		Log.i("Ach", String.valueOf(scene.humansC));
-		ach.checkAllHumansLeft(scene.humansC);
-		ach.checkHumansOneLeft(scene.humansC);
-		//ach.checkFiresOneLeft(EnemyLayer.getSharedInstance().enemyCount+scene.dFire-scene.fires);
-		
+		ach.add_points(scene.points, ach.curTheme.getString("Theme", "0"));
+		Log.i("EndScene", String.valueOf(scene.points + " " + ach.curTheme.getString("Theme", "0")));
+		ach.unlockTheme_1();
+		ach.unlockTheme_2();
+		ach.unlockTheme_3();
+		ach.unlockTheme_4();
+		//ach.unlockTheme_5();
 		
 		Text startButton = new Text(0,0, activity.start, "Click to try again!", activity.getVertexBufferObjectManager());
 		Text points = new Text(0, 0, activity.endPoints, String.valueOf(scene.points), activity.getVertexBufferObjectManager());
