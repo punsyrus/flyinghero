@@ -95,11 +95,13 @@ public class PauseScene extends Scene implements IOnSceneTouchListener{
 	    			return true;
 	    		}};
 	    
-	    
+	    Text B1 = new Text(pauseButInv.getX()+20,pauseButInv.getY()+20, activity.start, "B", activity.getVertexBufferObjectManager());	
+	   
 	    registerTouchArea(pauseButInv);
 	    //pauseButInv.setVisible(false);
 	    setTouchAreaBindingOnActionDownEnabled(true);
 	    attachChild(pauseButInv);
+	    attachChild(B1);
 		
 	    interfaceBut = new Rectangle(10, cam.getHeight()-90, 80, 80, BaseActivity.getSharedInstance()
 	            .getVertexBufferObjectManager()){
@@ -125,11 +127,13 @@ public class PauseScene extends Scene implements IOnSceneTouchListener{
 	    			return true;
 	    		}};
 	    
+	    Text T1 = new Text(interfaceBut.getX()+20,interfaceBut.getY()+20, activity.start, "T", activity.getVertexBufferObjectManager());	
 	    
 	    registerTouchArea(interfaceBut);
 	    //pauseButInv.setVisible(false);
 	    setTouchAreaBindingOnActionDownEnabled(true);
 	    attachChild(interfaceBut);
+	    attachChild(T1);
 	    
 	    achieveBut = new Rectangle(100, cam.getHeight()-90, 80, 80, BaseActivity.getSharedInstance()
 	            .getVertexBufferObjectManager()){
@@ -155,12 +159,14 @@ public class PauseScene extends Scene implements IOnSceneTouchListener{
 	    			return true;
 	    		}};
 	    
+	    Text A1 = new Text(achieveBut.getX()+20,achieveBut.getY()+20, activity.start, "A", activity.getVertexBufferObjectManager());	
 	    
 	    registerTouchArea(achieveBut);
 	    //pauseButInv.setVisible(false);
 	    setTouchAreaBindingOnActionDownEnabled(true);
 	    attachChild(achieveBut);
-
+	    attachChild(A1);
+	    
 }
 	
 	
