@@ -51,10 +51,10 @@ public class IntroScene extends Scene implements IOnSceneTouchListener{
 		
 		ach.add_points(scene.points, ach.curTheme.getString("Theme", "0"));
 		Log.i("EndScene", String.valueOf(scene.points + " " + ach.curTheme.getString("Theme", "0")));
-		ach.unlockTheme_1();
-		ach.unlockTheme_2();
-		ach.unlockTheme_3();
-		ach.unlockTheme_4();
+		if (activity.curTheme.getInt(String.valueOf(activity.themesList.get(1)), 0)==0) ach.unlockTheme_1();
+		if (activity.curTheme.getInt(String.valueOf(activity.themesList.get(2)), 0)==0) ach.unlockTheme_2();
+		if (activity.curTheme.getInt(String.valueOf(activity.themesList.get(3)), 0)==0) ach.unlockTheme_3();
+		if (activity.curTheme.getInt(String.valueOf(activity.themesList.get(4)), 0)==0) ach.unlockTheme_4();
 		
 		setOnSceneTouchListener(new IOnSceneTouchListener(){
 		    @Override public boolean onSceneTouchEvent(    final Scene pScene,    final TouchEvent pSceneTouchEvent){
