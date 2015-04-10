@@ -150,7 +150,7 @@ public void shoot(float point) {
 	xMod = point-(BaseActivity.getSharedInstance().mCamera.getWidth()/2);
     GameScene scene = (GameScene) BaseActivity.getSharedInstance().mCurrentScene;
    
-    scene.body1.applyForce(1950, xMod*2, 0, 0);
+    scene.body1.applyForce(1950, xMod*4, 0, 0);
    
 }
 

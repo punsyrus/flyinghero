@@ -6,7 +6,9 @@ import org.andengine.entity.primitive.Rectangle;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.text.Text;
 
+import android.R;
 import android.content.SharedPreferences.Editor;
+import android.media.MediaPlayer;
 
 public class Enemy {
 	public Rectangle spriteF;
@@ -89,7 +91,13 @@ public class Enemy {
 			 scene.tpoints.setPosition(10, 10);
 			 scene.attachChild(scene.tpoints);
 			
-	    	
+			 new Thread(){
+		            public void run(){
+		          //      MediaPlayer mp = MediaPlayer.create(BaseActivity.getSharedInstance(), R.raw.hit);   
+		             //   mp.start();
+		        }}.start();
+		   
+			 
 	        if (hp <= 0)
 	            return false;
 	        else

@@ -160,7 +160,7 @@ public class GameLoopUpdateHandler implements IUpdateHandler {
 	    }
 	    if (scene.started)
 	    if (speed < MIN_SPEED) {
-	        scene.body1.setLinearVelocity(velocity.mul(MIN_SPEED / speed));
+	     //   scene.body1.setLinearVelocity(velocity.mul(MIN_SPEED / speed));
 	    }
 	    	    
 	}

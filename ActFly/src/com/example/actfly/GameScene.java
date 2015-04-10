@@ -206,10 +206,8 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
 	    
 	    mCamera.setHUD(hud);
 	    
-	    final FixtureDef PLAYER_1 = PhysicsFactory.createFixtureDef(45.0f,
-				0.6f, 1f);
-	    final FixtureDef PLAYER_2 = PhysicsFactory.createFixtureDef(9000.0f,
-				1.4f, 0.6f);
+	    final FixtureDef PLAYER_1 = PhysicsFactory.createFixtureDef(35.0f, 1f, 5f);
+	    final FixtureDef PLAYER_2 = PhysicsFactory.createFixtureDef(9000.0f, 1.2f, 5f);
 	    
 	    
 		body1 = PhysicsFactory.createBoxBody(BaseActivity.getSharedInstance().mPhysicsWorld, person.sprite2,
@@ -409,10 +407,8 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
 	    	attachChild(pauseBut1);
 	    	attachChild(pauseButInv);
 	    
-	    	final FixtureDef PLAYER_1 = PhysicsFactory.createFixtureDef(45.0f,
-					0.6f, 1f);
-		    final FixtureDef PLAYER_2 = PhysicsFactory.createFixtureDef(9000.0f,
-					1.4f, 0.6f);
+		    final FixtureDef PLAYER_1 = PhysicsFactory.createFixtureDef(35.0f,1f, 5f);
+		    final FixtureDef PLAYER_2 = PhysicsFactory.createFixtureDef(9000.0f,1.2f, 5f);
 	    
 	    
 		body1 = PhysicsFactory.createBoxBody(BaseActivity.getSharedInstance().mPhysicsWorld, person.sprite2,
@@ -686,7 +682,13 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
 			        {
 			                super.onModifierFinished(pItem);
 			                if ((pItem.getX()>ship.sprite.getX()) && (pItem.getX()<(ship.sprite.getX()+ship.sprite.getWidth())))
-			                {}
+			                {
+			                	points+=50;
+			                    detachChild(tpoints);
+			       			 	tpoints = new Text(0, 0, act.gamePoints, String.valueOf(points), act.getVertexBufferObjectManager());
+			       			 	tpoints.setPosition(10, 10);
+			       			 	attachChild(tpoints);
+			                }
 			                	pItem.setUserData("Delete");
 			               BaseActivity.getSharedInstance().runOnUpdateThread(new Runnable() {
 
