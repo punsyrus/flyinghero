@@ -35,8 +35,9 @@ import android.widget.Toast;
 
 public class AllAchievementsScene extends Scene implements IOnSceneTouchListener{
 	BaseActivity activity;
-	
-	
+	public Ship ship;
+	public Person person;
+	public Rectangle rect9;
 	public Text notavail;
 	public Rectangle interfaceBut;
 	
@@ -46,20 +47,22 @@ public class AllAchievementsScene extends Scene implements IOnSceneTouchListener
 	
 	AllAchievementsScene()
 	{
+		ship = Ship.getSharedInstance();
+		person = Person.getSharedInstance();
 		Camera cam = BaseActivity.getSharedInstance().mCamera;
 		activity = BaseActivity.getSharedInstance();
-		setBackground(new Background(0.09804f, 0.6274f, 0));
+		setBackground(new Background(0.16f, 0.7374f, 0.94f));
 		
 		int i=0, j=1, l=0;
 		
-		for (i=10; i<=800; i+=158)
+		for (i=2; i<=800; i+=159)
 		if (j<activity.themesList.size())
 		{   
 			final int tn=j;
 
 		    //if (activity.Achievements.getInt(String.valueOf(activity.themesList.get(tn)), 0)==1) 
 		    {
-			Rectangle backrect = new Rectangle(i, 10, 148, 148, BaseActivity.getSharedInstance()
+			Rectangle backrect = new Rectangle(i, 2, 157, 100, BaseActivity.getSharedInstance()
 		            .getVertexBufferObjectManager()){
 		    	@Override
 				public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
@@ -74,38 +77,38 @@ public class AllAchievementsScene extends Scene implements IOnSceneTouchListener
 		    		}};
 		    
 		    	registerTouchArea(backrect);
-		    	backrect.setColor(0.15f, 0.15f, 0.15f);
+		    	backrect.setColor(0.64f, 0.81f, 0.81f);
 		    	setTouchAreaBindingOnActionDownEnabled(true);
 		    	attachChild(backrect);
-		    	//Sprite backIcon = new Sprite(backrect.getX()+backrect.getWidth()/2-20, backrect.getY()+backrect.getHeight()/2-20, activity.loadIconSprite(String.valueOf("gfx/"+activity.themesList.get(tn)+"/def")), activity.getVertexBufferObjectManager());
-		    	attachChild(new Sprite(backrect.getX()+backrect.getWidth()/2-20, backrect.getY()+backrect.getHeight()/2-20, activity.loadIconSprite(String.valueOf("gfx/"+activity.themesList.get(tn)+"/def"),j*40+1,l+1), activity.getVertexBufferObjectManager()));
+		    	Sprite backIcon = new Sprite(backrect.getX()+backrect.getWidth()/2-20, backrect.getY()+backrect.getHeight()/2-20, activity.loadIconSprite(String.valueOf("gfx/"+activity.themesList.get(tn)+"/def"),j*40+1,l+1), activity.getVertexBufferObjectManager());
+		    	backIcon.setScale(1.5f);
+		    	backIcon.setPosition(backrect.getX()+backrect.getWidth()/2-backIcon.getWidth()/2, backrect.getY()+backrect.getHeight()/2-backIcon.getHeight()/2);
+		    	attachChild(backIcon);
 		    	if (activity.Achievements.getInt(String.valueOf(activity.themesList.get(tn)), 0)==0)
 		    	{
-		    		attachChild(new Text(backrect.getX()+5, backrect.getY()+5, activity.gamePoints,"Not achieved",activity.getVertexBufferObjectManager()));
+		    		attachChild(new Text(backrect.getX()+5, backrect.getY()+5, activity.pauseFont,"Not achieved",activity.getVertexBufferObjectManager()));
 		    	}
 		    }
 				j++;
 		}
 		
-		   interfaceBut = new Rectangle(cam.getWidth()-90, cam.getHeight()-90, 80, 80, BaseActivity.getSharedInstance()
-		            .getVertexBufferObjectManager()){
-		    	@Override
-				public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
-		    		if (pSceneTouchEvent.isActionDown()) {
-				    	  //Log.i("Click", "Down");
-				    
-				  		  activity.setCurrentScene(new PauseScene());
-				      }
-
-		    			return true;
-		    		}};
-		    
-		    Text B1 = new Text(interfaceBut.getX()+20,interfaceBut.getY()+20, activity.start, "B", activity.getVertexBufferObjectManager());	
-		    registerTouchArea(interfaceBut);
-		    //pauseButInv.setVisible(false);
-		    setTouchAreaBindingOnActionDownEnabled(true);
-		    attachChild(interfaceBut);
-		    attachChild(B1);
+		
+		rect9 = new Rectangle(600f,	377f,	198f,	101f, BaseActivity.getSharedInstance().getVertexBufferObjectManager()){
+			    	@Override
+					public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
+			    		if (pSceneTouchEvent.isActionDown()) {
+			    			  activity.setCurrentScene(new PauseScene());
+					      }
+			    			return true;
+			    		}};
+			    
+			    registerTouchArea(rect9);
+			    setTouchAreaBindingOnActionDownEnabled(true);
+			    attachChild(rect9);
+		rect9.setColor(0.64f, 0.81f, 0.81f);
+		Text text9 = new Text(rect9.getX()+10, rect9.getY()+10, activity.pauseFontBig, String.valueOf("Back >"), activity.getVertexBufferObjectManager());
+		text9.setPosition(rect9.getX()+rect9.getWidth()/2-text9.getWidth()/2, rect9.getY()+rect9.getHeight()/2-text9.getHeight()/2);
+		attachChild(text9);
 		
 		//notavail = new Text(0,0,activity.gamePoints,"?",BaseActivity.getSharedInstance().getVertexBufferObjectManager());
 		

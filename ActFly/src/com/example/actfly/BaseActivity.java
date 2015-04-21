@@ -58,6 +58,9 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 
 import android.graphics.Typeface;
 import android.hardware.SensorManager;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.util.Log;
 import android.view.Display;
 import android.view.KeyEvent;
@@ -69,14 +72,18 @@ public class BaseActivity extends SimpleBaseGameActivity implements OnClickListe
 	static final int CAMERA_HEIGHT = 480;
 	 
 	public Font mFont;
+	public Font pauseFont;
 	public Font endPoints;
 	public Font start;
 	public Font gamePoints;
+	public Font pauseFontBig;
+	public Font pauseFontPoints;
 	public Camera mCamera;
 	public PhysicsWorld mPhysicsWorld;
 	public SharedPreferences Records;
 	public SharedPreferences Achievements;
 	public SharedPreferences curTheme;
+	public SharedPreferences Kits;
 	
 	private BitmapTextureAtlas theme1Atlas;
 	private BitmapTextureAtlas iconsAtlas;
@@ -94,7 +101,10 @@ public class BaseActivity extends SimpleBaseGameActivity implements OnClickListe
 	public TextureRegion flyingRegion;
 	public TextureRegion blockRegion;
 	ArrayList themesList = new ArrayList();
-	
+	//MediaPlayer mp;
+	SoundPool mSoundPool;
+	int mSoundId = 1;
+    int mStreamId;
 	
 	//A reference to the current scene
 	public Scene mCurrentScene;
@@ -118,14 +128,21 @@ public class BaseActivity extends SimpleBaseGameActivity implements OnClickListe
 
 	@Override
 	protected void onCreateResources() {
+		
 		//mFont = FontFactory.create(this.getFontManager(),this.getTextureManager(), 256, 256,Typeface.create(Typeface.DEFAULT, Typeface.BOLD), 45, Color.parseColor("#00ff00"));
 		//mFont.load();
 		endPoints = FontFactory.create(this.getFontManager(),this.getTextureManager(), 256, 256,Typeface.create(Typeface.DEFAULT, Typeface.BOLD), 50, Color.parseColor("#FFDD6C"));
 		endPoints.load();
-		start = FontFactory.create(this.getFontManager(),this.getTextureManager(), 256, 256,Typeface.create(Typeface.DEFAULT, Typeface.BOLD), 55, Color.parseColor("#FFDD6C"));
+		start = FontFactory.create(this.getFontManager(),this.getTextureManager(), 256, 256,Typeface.create(Typeface.SANS_SERIF, Typeface.NORMAL), 55, Color.parseColor("#FAEE69"));
 		start.load();
 		gamePoints = FontFactory.create(this.getFontManager(),this.getTextureManager(), 256, 256,Typeface.create(Typeface.DEFAULT, Typeface.BOLD), 36, Color.parseColor("#D16900"));
 		gamePoints.load();
+		pauseFont = FontFactory.create(this.getFontManager(),this.getTextureManager(), 256, 256,Typeface.create(Typeface.SANS_SERIF, Typeface.NORMAL), 25, Color.parseColor("#111111"));
+		pauseFont.load();
+		pauseFontBig = FontFactory.create(this.getFontManager(),this.getTextureManager(), 256, 256,Typeface.create(Typeface.SANS_SERIF, Typeface.NORMAL), 32, Color.parseColor("#111111"));
+		pauseFontBig.load();
+		pauseFontPoints = FontFactory.create(this.getFontManager(),this.getTextureManager(), 256, 256,Typeface.create(Typeface.SANS_SERIF, Typeface.BOLD), 50, Color.parseColor("#FFF241"));
+		pauseFontPoints.load();
 		/*try {
 			this.mTexture = new BitmapTexture(this.getTextureManager(), new IInputStreamOpener() {
 				@Override
@@ -143,6 +160,8 @@ public class BaseActivity extends SimpleBaseGameActivity implements OnClickListe
 		Records = getSharedPreferences("HighScore", Context.MODE_PRIVATE);
 		Achievements = getSharedPreferences("Achievements", Context.MODE_PRIVATE);
 		curTheme = getSharedPreferences("CurrentTheme", Context.MODE_PRIVATE);
+		Kits = getSharedPreferences("GameKits", Context.MODE_PRIVATE);
+		
 		Editor editor = Records.edit();
 		editor.putInt("Record", 0);
 		editor.apply();
@@ -151,6 +170,11 @@ public class BaseActivity extends SimpleBaseGameActivity implements OnClickListe
 		iconsAtlas = new BitmapTextureAtlas(this.getTextureManager(), 256, 128);
 		iconsAtlas.load();
 		//loadBackSprite("gfx/1_noch_d.jpg");
+		/*int resID=BaseActivity.getSharedInstance().getResources().getIdentifier("bel1", "raw", BaseActivity.getSharedInstance().getPackageName());
+        mp = MediaPlayer.create(BaseActivity.getSharedInstance(), resID);   
+	*/
+        mSoundPool = new SoundPool(2, AudioManager.STREAM_MUSIC, 100);
+        mSoundPool.load(this, R.raw.bel1, 1);
 	}
 
 	public void loadBackSprite(String path) {

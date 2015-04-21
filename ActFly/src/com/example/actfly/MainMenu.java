@@ -21,9 +21,14 @@ public class MainMenu extends MenuScene implements IOnMenuItemClickListener{
 		super(BaseActivity.getSharedInstance().mCamera);
 		activity = BaseActivity.getSharedInstance();
 		Camera cam = BaseActivity.getSharedInstance().mCamera;
-		setBackground(new Background(0.09804f, 0.6274f, 0.8784f));
-		IMenuItem startButton = new TextMenuItem(MENU_START, activity.start, "Start", activity.getVertexBufferObjectManager());
-		startButton.setPosition(mCamera.getWidth() / 2 - startButton.getWidth() / 2, mCamera.getHeight() / 2 - startButton.getHeight() / 2);
+		setBackground(new Background(0.16f, 0.7374f, 0.94f));
+		
+		Rectangle rect = new Rectangle(2, cam.getHeight()/2-50, 796, 80, BaseActivity.getSharedInstance().getVertexBufferObjectManager());
+		//rect.setColor(0.37f, 0.87f, 0.51f);
+		rect.setColor(0.64f, 0.81f, 0.81f);
+		IMenuItem startButton = new TextMenuItem(MENU_START, activity.start, "START", activity.getVertexBufferObjectManager());
+		startButton.setPosition(rect.getX()+rect.getWidth()/2-startButton.getWidth()/2, rect.getY()+rect.getHeight()/2-startButton.getHeight()/2);
+		attachChild(rect);
 		addMenuItem(startButton);
 		 
 		setOnMenuItemClickListener(this);

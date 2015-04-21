@@ -70,7 +70,7 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
 	public Rectangle pauseBut2;
 	public Rectangle pauseButInv;
 	public int hits=0;
-	
+	boolean kitOpened=false;
 	/*sprites*/
 	public Sprite foneSprite;
 	public Sprite personSprite;
@@ -90,6 +90,9 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
 	public int humansC=0;
 	public int allHumans=0;
 	public int allFires=0;
+	
+	public Text kEnemC;
+	public Text kHumaC;
 	
 	HUD hud = new HUD();
 	boolean isPaused=false;
@@ -162,6 +165,8 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
 	    attachChild(ship.sprite);
 	    attachChild(person.sprite2); 
 	    
+	    kit();
+	    
 	    pauseBut1 = new Rectangle(mCamera.getWidth()-60, 20, 15, 40, BaseActivity.getSharedInstance()
 	            .getVertexBufferObjectManager());
 	    pauseBut2 = new Rectangle(mCamera.getWidth()-35, 20, 15, 40, BaseActivity.getSharedInstance()
@@ -204,7 +209,7 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
 	    attachChild(pauseBut1);
 	    attachChild(pauseButInv);
 	    
-	    mCamera.setHUD(hud);
+	   // mCamera.setHUD(hud);
 	    
 	    final FixtureDef PLAYER_1 = PhysicsFactory.createFixtureDef(35.0f, 1f, 5f);
 	    final FixtureDef PLAYER_2 = PhysicsFactory.createFixtureDef(9000.0f, 1.2f, 5f);
@@ -239,6 +244,117 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
 	    registerUpdateHandler(new GameLoopUpdateHandler());
 	}
 	
+	private void kit() {
+		// TODO Auto-generated method stub
+		kitOpened=false;
+		final Rectangle kitbutM = new Rectangle(0, 0, 120, 250, activity.getVertexBufferObjectManager());
+		
+		
+		final Rectangle kitEnem = new Rectangle(0, 0, 70, 70, activity.getVertexBufferObjectManager()){
+	    	@Override
+			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
+	    		switch(pSceneTouchEvent.getAction()) {
+				case TouchEvent.ACTION_DOWN:
+					Log.i("kit1", "touch");
+					break;
+				case TouchEvent.ACTION_MOVE:
+					break;
+				case TouchEvent.ACTION_UP:
+					break;
+	    		}
+	    		return true;
+	    		}};
+	    registerTouchArea(kitEnem);
+		
+		final Rectangle kitHuma = new Rectangle(0, 0, 70, 70, activity.getVertexBufferObjectManager()){
+	    	@Override
+			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
+	    		switch(pSceneTouchEvent.getAction()) {
+				case TouchEvent.ACTION_DOWN:
+					Log.i("kit2", "touch");
+					break;
+				case TouchEvent.ACTION_MOVE:
+					break;
+				case TouchEvent.ACTION_UP:
+					break;
+	    		}
+	    		return true;
+	    		}};
+	    registerTouchArea(kitHuma);
+		
+		
+		kEnemC = new Text(0,0,activity.gamePoints, String.valueOf(activity.Kits.getInt("boomKit", 0)),activity.getVertexBufferObjectManager());
+		kHumaC = new Text(0,0,activity.gamePoints, String.valueOf(activity.Kits.getInt("grabKit", 0)),activity.getVertexBufferObjectManager());
+		Rectangle kitbut = new Rectangle(0, 0, 120, 250, activity.getVertexBufferObjectManager()){
+	    	@Override
+			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
+	    		switch(pSceneTouchEvent.getAction()) {
+				case TouchEvent.ACTION_DOWN:
+					if (!kitOpened) 
+						{
+							kitbutM.registerEntityModifier(new MoveXModifier(0.5f, -105, -25)); 
+							kitEnem.registerEntityModifier(new MoveXModifier(0.5f, -95, 10)); 
+							kitHuma.registerEntityModifier(new MoveXModifier(0.5f, -95, 10)); 
+							kEnemC.registerEntityModifier(new MoveXModifier(0.5f, -85, 20)); 
+							kHumaC.registerEntityModifier(new MoveXModifier(0.5f, -85, 20)); 
+							kitOpened=true;
+						}
+					else if (kitOpened) 
+						{
+							kitbutM.registerEntityModifier(new MoveXModifier(0.5f, -25, -105)); 
+							kitEnem.registerEntityModifier(new MoveXModifier(0.5f, 10, -95));
+							kitHuma.registerEntityModifier(new MoveXModifier(0.5f, 10, -95));
+							kEnemC.registerEntityModifier(new MoveXModifier(0.5f, 20, -85)); 
+							kHumaC.registerEntityModifier(new MoveXModifier(0.5f, 20, -85)); 
+							kitOpened=false;
+						}
+					break;
+				case TouchEvent.ACTION_MOVE:
+					break;
+				case TouchEvent.ACTION_UP:
+					break;
+			}
+
+	    			return true;
+	    		}};
+	    registerTouchArea(kitbut);
+	    kitbut.setVisible(false);
+		kitbut.setPosition(-105, mCamera.getHeight()/2-kitbut.getHeight()/2);
+		kitbutM.setPosition(-105, mCamera.getHeight()/2-kitbut.getHeight()/2);
+		kitbutM.setColor(0.64f, 0.81f, 0.81f, 0.5f);
+		kitEnem.setPosition(-95, mCamera.getHeight()/2-kitbut.getHeight()/2+10);
+		kitEnem.setColor(0.64f, 0.81f, 0.81f, 0.3f);
+		kitHuma.setPosition(-95, mCamera.getHeight()/2-kitbut.getHeight()/2+95);
+		kitHuma.setColor(0.64f, 0.81f, 0.81f, 0.3f);
+		
+		kEnemC.setPosition(kitEnem.getX()+15, kitEnem.getY()+15);
+		kEnemC.setColor(0.64f, 0.81f, 0.81f);
+		kHumaC.setPosition(kitHuma.getX()+15, kitHuma.getY()+15);
+		kHumaC.setColor(0.64f, 0.81f, 0.81f);
+		
+		attachChild(kitbut);
+		attachChild(kitbutM);
+		attachChild(kitEnem);
+		attachChild(kitHuma);
+		attachChild(kEnemC);
+		attachChild(kHumaC);
+	}
+	
+	public void updateKit()
+	{
+	/*	Editor editor = activity.Kits.edit();
+		editor.clear();
+		editor.putInt("boomKit", activity.Kits.getInt("boomKit", 0)+1);
+		editor.putInt("grabKit", activity.Kits.getInt("grabKit", 0)+1);
+		editor.apply();*/
+		detachChild(kEnemC);
+		detachChild(kHumaC);
+		kEnemC.setText(String.valueOf(activity.Kits.getInt("boomKit", 0)));
+		kHumaC.setText(String.valueOf(activity.Kits.getInt("grabKit", 0)));
+		attachChild(kEnemC);
+		attachChild(kHumaC);
+	}
+
 	public void loadSprites()
 	{
 		loadblockSprite();
@@ -366,6 +482,7 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
 		attachChild(thumans);
 	    attachChild(ship.sprite);
 	    attachChild(person.sprite2); 
+	    kit();
 	    
 	    pauseBut1 = new Rectangle(mCamera.getWidth()-60, 20, 15, 40, BaseActivity.getSharedInstance()
 	            .getVertexBufferObjectManager());
@@ -688,6 +805,14 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
 			       			 	tpoints = new Text(0, 0, act.gamePoints, String.valueOf(points), act.getVertexBufferObjectManager());
 			       			 	tpoints.setPosition(10, 10);
 			       			 	attachChild(tpoints);
+			       			 	Random rk = new Random();
+			       			 	int ki = rk.nextInt(1);
+			       				Editor editor = activity.Kits.edit();
+			       				editor.clear();
+			       				if (ki==1) editor.putInt("boomKit", activity.Kits.getInt("boomKit", 0)+1);
+			       				if (ki==0) editor.putInt("grabKit", activity.Kits.getInt("grabKit", 0)+1);
+			       				editor.apply();
+			       			 	
 			                }
 			                	pItem.setUserData("Delete");
 			               BaseActivity.getSharedInstance().runOnUpdateThread(new Runnable() {

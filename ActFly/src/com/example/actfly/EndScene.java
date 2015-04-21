@@ -47,7 +47,7 @@ public class EndScene extends Scene implements IOnSceneTouchListener{
 		Camera cam = BaseActivity.getSharedInstance().mCamera;
 		activity = BaseActivity.getSharedInstance();
 		//ach = Achievements.getSharedInstance();
-		setBackground(new Background(0.09804f, 0.6274f, 0));
+		setBackground(new Background(0.16f, 0.7374f, 0.94f));
 		Log.i("high", String.valueOf(scene.points + " " + activity.Records.getInt("HighScore", 0)));
 		if (scene.points>activity.Records.getInt("HighScore", 0))
 		{

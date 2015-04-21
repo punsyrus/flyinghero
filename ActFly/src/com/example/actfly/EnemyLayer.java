@@ -94,16 +94,22 @@ public class EnemyLayer extends Entity{
 		    e.spriteF.setPosition(xF,yF);
 		    e.spriteF.setVisible(false);
 		    e.spriteRF.setPosition(xF-e.spriteRF.getWidth()/2,yF-e.spriteRF.getHeight()/2);
-		    e.spriteRF.setVisible(true);
+		    e.spriteRF.setVisible(false);
 		    e.spriteHp.setPosition(xF-e.spriteHp.getWidth()/2,yF-e.spriteHp.getHeight()/2);
-		    e.spriteHp.setVisible(true);
+		    e.spriteHp.setVisible(false);
 		    e.spriteHp3.setPosition(xF-e.spriteHp3.getWidth()/2,yF-e.spriteHp3.getHeight()/2);
-		    e.spriteHp3.setVisible(true);
+		    e.spriteHp3.setVisible(false);
 		 
 		    attachChild(e.spriteF);
 		    sortChildren();
-		   if (e.MAX_HEALTH==3) 
-		    {attachChild(e.spriteHp3); sortChildren();}
+		  if (e.MAX_HEALTH==3) 
+		    	{
+		    		attachChild(e.spriteHp3); 
+		    		sortChildren(); 
+		    		e.spriteHp3.setVisible(true);
+		    	} 
+		    else 
+		    	e.spriteHp.setVisible(true);
 		    attachChild(e.spriteRF); sortChildren();
 		    attachChild(e.spriteHp); sortChildren(true);
 		    
@@ -200,19 +206,27 @@ for (int i = 0; i < 3; i++) {
 		    //Log.i("loca", String.valueOf(xF + " " + yF));
 		  // Log.i("loca", String.valueOf(xF + " " + yF));
 		    e.spriteF.setPosition(xF,yF);
-		    e.spriteF.setVisible(true);
+		    e.spriteF.setVisible(false);
 		    e.spriteRF.setPosition(xF-e.spriteRF.getWidth()/2,yF-e.spriteRF.getHeight()/2);
-		    e.spriteRF.setVisible(true);
+		    e.spriteRF.setVisible(false);
 		    e.spriteHp.setPosition(xF-e.spriteHp.getWidth()/2,yF-e.spriteHp.getHeight()/2);
-		    e.spriteHp.setVisible(true);
+		    e.spriteHp.setVisible(false);
 		    e.spriteHp3.setPosition(xF-e.spriteHp3.getWidth()/2,yF-e.spriteHp3.getHeight()/2);
-		    e.spriteHp3.setVisible(true);
+		    e.spriteHp3.setVisible(false);
 		 
 		    attachChild(e.spriteF);
-		    sortChildren(true);
-		    if (e.MAX_HEALTH==3) {attachChild(e.spriteHp3); sortChildren();}
 		    attachChild(e.spriteHp); sortChildren();
 		    attachChild(e.spriteRF); sortChildren(true);
+		    sortChildren(true);
+		    if (e.MAX_HEALTH==3) 
+		    	{
+		    		attachChild(e.spriteHp3); 
+		    		sortChildren(); 
+		    		e.spriteHp3.setVisible(true);
+		    	} 
+		    else 
+		    	e.spriteHp.setVisible(true);
+		   
 		    
 		    
 		    

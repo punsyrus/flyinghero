@@ -34,6 +34,8 @@ public class GameLoopUpdateHandler implements IUpdateHandler {
 	
 	@Override
 	public void onUpdate(float pSecondsElapsed) {
+		ship = Ship.getSharedInstance();
+		person = Person.getSharedInstance();
 	   //if (!scene.isPaused) 
 	   { 
 	    removeBody();
@@ -106,7 +108,7 @@ public class GameLoopUpdateHandler implements IUpdateHandler {
 	
 	public void stopShip()
 	{
-		ship = Ship.getSharedInstance();
+		
 	    float xL,xR;
 	    xL=ship.sprite.getX();
 	    xR=ship.sprite.getX()+ship.sprite.getWidth();
@@ -125,7 +127,7 @@ public class GameLoopUpdateHandler implements IUpdateHandler {
 	
 	public void checkFall()
 	{
-		person = Person.getSharedInstance();
+		
 	    float y;
 	    y=person.sprite2.getY()+person.sprite2.getHeight();
 	   // GameScene scene = (GameScene) BaseActivity.getSharedInstance().mCurrentScene;
@@ -149,7 +151,7 @@ public class GameLoopUpdateHandler implements IUpdateHandler {
 	
 	public void limitSpeed()
 	{
-		person = Person.getSharedInstance();
+		
 	  //  GameScene scene = (GameScene) BaseActivity.getSharedInstance().mCurrentScene;
 	    Vector2 velocity = scene.body1.getLinearVelocity();
 	    

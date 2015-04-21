@@ -34,7 +34,7 @@ import android.widget.Toast;
 
 public class AchieveDetailScene extends Scene implements IOnSceneTouchListener{
 	BaseActivity activity;
-	Rectangle pauseButInv;
+	Rectangle rect9;
 
 	public Achievements ach = Achievements.getSharedInstance();
 	//GameScene scene = (GameScene) BaseActivity.getSharedInstance().mCurrentScene;
@@ -43,35 +43,42 @@ public class AchieveDetailScene extends Scene implements IOnSceneTouchListener{
 	AchieveDetailScene(int req)
 	{
 		Camera cam = BaseActivity.getSharedInstance().mCamera;
+		int cond=0;
 		activity = BaseActivity.getSharedInstance();
 		setBackground(new Background(0.09804f, 0.6274f, 0));
-		String require = "";
-		if (req==1) require="Balls: 100 points";
-		if (req==2) require="Balls: 200 points, Fruits: 200 points";
-		if (req==3) require="Fruits: 300 points, Neon: 400 points";
-		if (req==4) require="Neon: 500 points, Ocean: 500 points";
-		Text fires = new Text(10,10, activity.gamePoints, require, activity.getVertexBufferObjectManager());	
+		String[] require = new String[10];
+		if (req==1) {cond=1; require[1]="Balls: 100 points";}
+		if (req==2) {cond=2; require[1]="Balls: 200 points"; require[2]="Fruits: 200 points";}
+		if (req==3) {cond=2; require[1]="Fruits: 300 points"; require[2]="Neon: 400 points";}
+		if (req==4) {cond=2; require[1]="Neon: 500 points"; require[2]="Ocean: 500 points";}
+		for (int i=1; i<=cond; i++)
+		{
+		Rectangle rect = new Rectangle(2, 2*i+80*(i-1), 796, 80, BaseActivity.getSharedInstance().getVertexBufferObjectManager());
+		rect.setColor(0.64f, 0.81f, 0.81f);
+		Text fires = new Text(10,10, activity.pauseFontBig, require[i], activity.getVertexBufferObjectManager());
+		fires.setPosition(rect.getX()+rect.getWidth()/2-fires.getWidth()/2, rect.getY()+rect.getHeight()/2-fires.getHeight()/2);
+		attachChild(rect);
 		attachChild(fires);
-		
-		pauseButInv = new Rectangle(cam.getWidth()-90, cam.getHeight()-90, 80, 80, BaseActivity.getSharedInstance()
-	            .getVertexBufferObjectManager()){
+		}
+		rect9 = new Rectangle(600f,	377f,	198f,	101f, BaseActivity.getSharedInstance().getVertexBufferObjectManager()){
 	    	@Override
 			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
 	    		if (pSceneTouchEvent.isActionDown()) {
-			    	  //Log.i("Click", "Down");
-			    
-	    			
-			  		  activity.setCurrentScene(new AllAchievementsScene());
+	    			  activity.setCurrentScene(new AllAchievementsScene());
 			      }
-
 	    			return true;
 	    		}};
 	    
-	    
-	    registerTouchArea(pauseButInv);
-	    //pauseButInv.setVisible(false);
+	    registerTouchArea(rect9);
 	    setTouchAreaBindingOnActionDownEnabled(true);
-	    attachChild(pauseButInv);
+	    attachChild(rect9);
+rect9.setColor(0.64f, 0.81f, 0.81f);
+Text text9 = new Text(rect9.getX()+10, rect9.getY()+10, activity.pauseFontBig, String.valueOf("Back >"), activity.getVertexBufferObjectManager());
+text9.setPosition(rect9.getX()+rect9.getWidth()/2-text9.getWidth()/2, rect9.getY()+rect9.getHeight()/2-text9.getHeight()/2);
+attachChild(text9);
+	    
+	    
+	 
 	}
 	
 	

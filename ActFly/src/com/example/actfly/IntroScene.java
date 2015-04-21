@@ -41,7 +41,7 @@ public class IntroScene extends Scene implements IOnSceneTouchListener{
 	{
 		Camera cam = BaseActivity.getSharedInstance().mCamera;
 		activity = BaseActivity.getSharedInstance();
-		setBackground(new Background(0.09804f, 0.6274f, 0));
+		setBackground(new Background(0.16f, 0.7374f, 0.94f));
 		ship = Ship.getSharedInstance();
 		person = Person.getSharedInstance();
 		scene.detachChild(ship.sprite);
@@ -50,7 +50,8 @@ public class IntroScene extends Scene implements IOnSceneTouchListener{
 		attachChild(person.sprite2);
 		
 		ach.add_points(scene.points, ach.curTheme.getString("Theme", "0"));
-		Log.i("EndScene", String.valueOf(scene.points + " " + ach.curTheme.getString("Theme", "0")));
+		ach.add_points_theme(scene.points, ach.curTheme.getString("Theme", "0"));
+		Log.i("IntroScene", String.valueOf(scene.points + " " + ach.curTheme.getString("Theme", "0")));
 		if (activity.curTheme.getInt(String.valueOf(activity.themesList.get(1)), 0)==0) ach.unlockTheme_1();
 		if (activity.curTheme.getInt(String.valueOf(activity.themesList.get(2)), 0)==0) ach.unlockTheme_2();
 		if (activity.curTheme.getInt(String.valueOf(activity.themesList.get(3)), 0)==0) ach.unlockTheme_3();
