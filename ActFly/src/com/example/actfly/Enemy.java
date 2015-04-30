@@ -101,8 +101,7 @@ public class Enemy {
 	    	if (BaseActivity.getSharedInstance().mCurrentScene.getUserData().equals("GameScene"))
 	    	{GameScene scene = (GameScene) BaseActivity.getSharedInstance().mCurrentScene;
 	    	scene.points+=10;
-	    	
-	    	
+	    	//KitBonuses.make_boom();
 	        hp--;
 	        if (hp==1) 
 	        	{

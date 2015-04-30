@@ -21,7 +21,7 @@ public class GameLoopUpdateHandler implements IUpdateHandler {
 	public Person person;
 	public Ship ship;
 	public EnemyLayer enemies;
-	public int MAX_SPEED = 15; 
+	public int MAX_SPEED = 10; 
 	public int MIN_SPEED = 2; 
 	 
 	public int cur_level=1;

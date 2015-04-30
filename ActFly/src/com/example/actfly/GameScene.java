@@ -41,6 +41,7 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 
+import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
@@ -86,6 +87,7 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
 	public Sprite flyingSprite;
 	public Sprite blockSprite;
 	/*sprites*/
+	public static SharedPreferences Kits;
 	
 	public int humansC=0;
 	public int allHumans=0;
@@ -102,6 +104,10 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
 	
 	public GameScene() {
 		instance=this;
+		Kits =activity.Kits;
+		Editor keditor = Kits.edit();
+		keditor.putInt("boomKit", 5);
+		keditor.apply();
 		
 		setUserData("GameScene");
 		activity.themesList.add(0,"balls_theme");
@@ -242,6 +248,7 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
 	    registerUpdateHandler(BaseActivity.getSharedInstance().mPhysicsWorld);
 	    
 	    registerUpdateHandler(new GameLoopUpdateHandler());
+	    updateKit();
 	}
 	
 	private void kit() {
@@ -256,6 +263,7 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
 	    		switch(pSceneTouchEvent.getAction()) {
 				case TouchEvent.ACTION_DOWN:
 					Log.i("kit1", "touch");
+					KitBonuses.make_boom();
 					break;
 				case TouchEvent.ACTION_MOVE:
 					break;
@@ -307,6 +315,7 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
 							kEnemC.registerEntityModifier(new MoveXModifier(0.5f, 20, -85)); 
 							kHumaC.registerEntityModifier(new MoveXModifier(0.5f, 20, -85)); 
 							kitOpened=false;
+							//KitBonuses.make_boom();
 						}
 					break;
 				case TouchEvent.ACTION_MOVE:
